@@ -1,13 +1,11 @@
 package com.api.textsearch.controller;
 
 import com.api.textsearch.dto.TextSearchRequest;
-import com.api.textsearch.service.TextSearchService;
+import com.api.textsearch.dto.TextSearchResponse;
+import com.api.textsearch.service.impl.TextSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -18,9 +16,9 @@ import java.io.IOException;
 public class TextSearchController
 {
     private final TextSearchService textSearchService;
-    @GetMapping("/api/text")
-    public ResponseEntity<Void> getUserLocation(@RequestBody TextSearchRequest textSearchRequest) throws IOException {
-        textSearchService.analyzeText(textSearchRequest);
-        return ResponseEntity.ok().build();
+    @GetMapping("/api/words")
+    public ResponseEntity<TextSearchResponse> getUserLocation(@RequestParam String similar, @RequestBody TextSearchRequest textSearchRequest) throws IOException {
+        TextSearchResponse response = textSearchService.analyzeText(textSearchRequest, similar);
+        return ResponseEntity.ok().body(response);
     }
 }

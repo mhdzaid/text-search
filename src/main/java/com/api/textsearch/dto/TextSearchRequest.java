@@ -12,5 +12,4 @@ import lombok.Setter;
 public class TextSearchRequest
 {
     private String text;
-    private String queryWord;
 }
