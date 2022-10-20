@@ -22,12 +22,14 @@ public class TextSearchServiceImpl implements TextSearchService
     @Override
     public TextSearchResponse analyzeText(String text, String queryWord) throws IOException {
         Analyzer customAnalyzer = CustomAnalyzer.builder()
-                .withTokenizer("whitespace")
+                .withTokenizer("classic")
                 .build();
         InMemoryLuceneIndex luceneIndex = new InMemoryLuceneIndex(new ByteBuffersDirectory(), customAnalyzer);
         luceneIndex.indexDocument("body", text);
-        long wordFrequency =  luceneIndex.countTerms(queryWord,"body");
+
+        Long wordFrequency =  luceneIndex.countTerms(queryWord,"body");
         List<String> similarWords = luceneIndex.similarWords(queryWord, "body", 1);
+
         luceneIndex.deleteDocument();
         return new TextSearchResponse(similarWords, wordFrequency);
     }

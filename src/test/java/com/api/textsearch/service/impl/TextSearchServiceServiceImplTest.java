@@ -38,6 +38,21 @@ class TextSearchServiceServiceImplTest
     }
 
     @Test
+    void is_analyzer_getting_similar_words_when_comma_added() throws IOException
+    {
+        String text = "Word, Words, Wor word";
+        String word = "Word";
+        TextSearchResponse textSearchResponse = textSearchServiceImpl.analyzeText(text, word);
+
+        assertEquals(1, textSearchResponse.getWordFrequency());
+        assertEquals(3, textSearchResponse.getSimilarWords().size());
+
+        assertTrue(textSearchResponse.getSimilarWords().contains("word"));
+        assertTrue(textSearchResponse.getSimilarWords().contains("Wor"));
+        assertTrue(textSearchResponse.getSimilarWords().contains("Words"));
+    }
+
+    @Test
     void is_analyzer_case_dependent() throws IOException
     {
         String text = "Word Word Word word";
