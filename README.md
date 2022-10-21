@@ -1,6 +1,7 @@
 ## Text Search
 ### How To Run
-* Project is running on port `8080`
+* This is a Spring Boot Maven project using java 8.
+* Project is running on port `8080`.
 * The API call is endpoint is
 ```
     http://localhost:8080/api/v1/words?similar=
