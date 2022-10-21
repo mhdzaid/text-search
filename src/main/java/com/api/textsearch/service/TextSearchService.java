@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public interface TextSearchService
 {
-    TextSearchResponse analyzeText(String text, String queryWord) throws IOException;
+    TextSearchResponse getFrequencyAndSimilarWords(String text, String queryWord) throws IOException;
 }
 

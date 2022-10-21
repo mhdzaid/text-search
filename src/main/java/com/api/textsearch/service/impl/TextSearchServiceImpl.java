@@ -28,7 +28,7 @@ public class TextSearchServiceImpl implements TextSearchService
      * @throws IOException
      */
     @Override
-    public TextSearchResponse analyzeText(String text, String queryWord) throws IOException
+    public TextSearchResponse getFrequencyAndSimilarWords(String text, String queryWord) throws IOException
     {
         Analyzer customAnalyzer = CustomAnalyzer.builder()
                 .withTokenizer(Tokenizer.CLASSICAL.getName())

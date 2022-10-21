@@ -27,7 +27,7 @@ class TextSearchServiceServiceImplTest
     {
         String text = "Word Words Wor word";
         String word = "Word";
-        TextSearchResponse textSearchResponse = textSearchServiceImpl.analyzeText(text, word);
+        TextSearchResponse textSearchResponse = textSearchServiceImpl.getFrequencyAndSimilarWords(text, word);
 
         assertEquals(1, textSearchResponse.getWordFrequency());
         assertEquals(3, textSearchResponse.getSimilarWords().size());
@@ -42,7 +42,7 @@ class TextSearchServiceServiceImplTest
     {
         String text = "Word, Words, Wor word";
         String word = "Word";
-        TextSearchResponse textSearchResponse = textSearchServiceImpl.analyzeText(text, word);
+        TextSearchResponse textSearchResponse = textSearchServiceImpl.getFrequencyAndSimilarWords(text, word);
 
         assertEquals(1, textSearchResponse.getWordFrequency());
         assertEquals(3, textSearchResponse.getSimilarWords().size());
@@ -57,7 +57,7 @@ class TextSearchServiceServiceImplTest
     {
         String text = "Word Word Word word";
         String word = "Word";
-        TextSearchResponse textSearchResponse = textSearchServiceImpl.analyzeText(text, word);
+        TextSearchResponse textSearchResponse = textSearchServiceImpl.getFrequencyAndSimilarWords(text, word);
 
         assertEquals(3, textSearchResponse.getWordFrequency());
         assertEquals(1, textSearchResponse.getSimilarWords().size());
