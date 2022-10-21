@@ -41,7 +41,7 @@ class TextSearchControllerTest {
     {
         MockitoAnnotations.initMocks(this);
 
-        TextSearchController textSearchController = new TextSearchController();
+        TextSearchController textSearchController = new TextSearchController(textSearchService);
         ReflectionTestUtils.setField(textSearchController, "textSearchService", textSearchService);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(textSearchController)

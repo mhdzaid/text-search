@@ -3,7 +3,7 @@ package com.api.textsearch.controller;
 import com.api.textsearch.dto.TextSearchRequest;
 import com.api.textsearch.dto.TextSearchResponse;
 import com.api.textsearch.service.TextSearchService;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +15,11 @@ import static com.api.textsearch.support.RestPath.API_VERSION_1_WORDS_OPTION;
 @Slf4j
 @RestController
 @RequestMapping
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class TextSearchController
 {
-    private TextSearchService textSearchService;
+    private final TextSearchService textSearchService;
 
-    public TextSearchController(TextSearchService textSearchService)
-    {
-        this.textSearchService = textSearchService;
-    }
     @GetMapping(API_VERSION_1_WORDS_OPTION)
     public ResponseEntity<TextSearchResponse> getFrequencyAndSimilarWords(@RequestParam String similar, @RequestBody TextSearchRequest textSearchRequest) throws IOException
     {
