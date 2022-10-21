@@ -2,6 +2,7 @@ package com.api.textsearch.service.impl;
 
 import com.api.textsearch.dto.TextSearchResponse;
 import com.api.textsearch.lucene.service.InMemoryLuceneIndex;
+import com.api.textsearch.model.Tokenizer;
 import com.api.textsearch.service.TextSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +19,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TextSearchServiceImpl implements TextSearchService
 {
-
+    private static final String DEFAULT_FIELD = "body";
+    /**
+     * Returns word frequency and similar words
+     * @param text
+     * @param queryWord
+     * @return
+     * @throws IOException
+     */
     @Override
-    public TextSearchResponse analyzeText(String text, String queryWord) throws IOException {
+    public TextSearchResponse analyzeText(String text, String queryWord) throws IOException
+    {
         Analyzer customAnalyzer = CustomAnalyzer.builder()
-                .withTokenizer("classic")
+                .withTokenizer(Tokenizer.CLASSICAL.getName())
                 .build();
         InMemoryLuceneIndex luceneIndex = new InMemoryLuceneIndex(new ByteBuffersDirectory(), customAnalyzer);
-        luceneIndex.indexDocument("body", text);
+        luceneIndex.indexDocument(DEFAULT_FIELD, text);
 
-        Long wordFrequency =  luceneIndex.countTerms(queryWord,"body");
-        List<String> similarWords = luceneIndex.similarWords(queryWord, "body", 1);
+        Long wordFrequency =  luceneIndex.countTerms(queryWord,DEFAULT_FIELD);
+        List<String> similarWords = luceneIndex.similarWords(queryWord, DEFAULT_FIELD, 1);
 
         luceneIndex.deleteDocument();
         return new TextSearchResponse(similarWords, wordFrequency);

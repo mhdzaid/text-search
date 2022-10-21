@@ -15,6 +15,8 @@ import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.BytesRef;
 
+import static com.api.textsearch.support.ErrorMessage.USER_FRIENDLY_MESSAGE;
+
 @Slf4j
 public class InMemoryLuceneIndex
 {
@@ -47,7 +49,7 @@ public class InMemoryLuceneIndex
             indexWriter.close();
         } catch (IOException e) {
             log.error("Error while creating document : {}", e.getMessage());
-            throw new UserFriendlyException("Something went wrong. Contact Administration");
+            throw new UserFriendlyException(USER_FRIENDLY_MESSAGE);
         }
     }
 
@@ -61,7 +63,7 @@ public class InMemoryLuceneIndex
             memoryIndex.close();
         } catch (IOException e) {
             log.error("Error while deleting memory index : {}", e.getMessage());
-            throw new UserFriendlyException("Something went wrong. Contact Administration");
+            throw new UserFriendlyException(USER_FRIENDLY_MESSAGE);
         }
     }
 
@@ -79,7 +81,7 @@ public class InMemoryLuceneIndex
             return indexReader.totalTermFreq(new Term(field, query));
         } catch (IOException e) {
             log.error("Error while counting term frequency : {}", e.getMessage());
-            throw new UserFriendlyException("Something went wrong. Contact Administration");
+            throw new UserFriendlyException(USER_FRIENDLY_MESSAGE);
         }
     }
 
@@ -113,7 +115,7 @@ public class InMemoryLuceneIndex
             return values;
         } catch (IOException e) {
             log.error("Error while calculating similar words : {}", e.getMessage());
-            throw new UserFriendlyException("Something went wrong. Contact Administration");
+            throw new UserFriendlyException(USER_FRIENDLY_MESSAGE);
         }
 
     }
